@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ZQ Feedback A1</title>
+    <!--jQuery mobile style-->
+    <link rel="stylesheet" type="text/css" href="css/lib/jquery.mobile-1.4.5.css">
+    <!--my style-->
+    <link rel="stylesheet" type="text/css" href="css/zqMystyle.css">
+    <!--jQuery-->
+    <script src="js/lib/jquery-2.1.4.js"></script>
+    <!--jQuery mobile-->
+    <script src="js/lib/jquery.mobile-1.4.5.js"></script>
+    <!--jQuery validator-->
+    <script src="js/lib/jquery.validate.js"></script>
+    <!--my script-->
+    <script src="js/myscript.js"></script>
+    <script src="js/zqDatabase.js"></script>
+    <script src="js/zqFeedbackDAL.js"></script>
+    <script src="js/zqGlobal.js"></script>
+    <script src="js/zqUtil.js"></script>
+</head>
+<body>
+
+
+<!--page 1-->
+<div id="ZQPageHome" data-role="page">
+    <header data-role="header" data-theme="b" data-position="fixed">
+        <h1>ZQ Feedback A1</h1>
+        <div data-role="navbar" data-iconpos="top">
+            <ul>
+                <li><a href="#ZQPageHome" data-icon="home" data-theme="a" class="ui-btn-active ui-state-persist"
+                       data-transition="" data-rel="">Home</a></li>
+                <li><a href="#ZQAddFeedbackPage" data-icon="plus" data-theme="a" class="" data-transition="" data-rel="">Add
+                   </a></li>
+                <li><a href="#ZQViewFeedbackPage" data-icon="grid" data-theme="a" class="" data-transition="" data-rel="">Reviews</a>
+                </li>
+                <li><a href="#ZQSettingsPage" data-icon="gear" data-theme="a" class="" data-transition="" data-rel="">Settings</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content">
+        <h1>Ziming Qi's Feedback A2 App</h1>
+        <p align="center">
+            <img src="images/ZQ-icon.png" width="25%" height="" alt="ZQ's icon">
+        </p>
+        <p>Please feel free to contact me if you have any suggestions!</p>
+        <a href="tel:1234567890" data-role="button" data-icon="plus">Call:123.456.7890</a>
+        <a href="mailto:Zqi4525@conestogac.on.ca" data-role="button" data-icon="plus">Zqi4525@conestogac.on.ca</a>
+        <p>Website:</p>
+        <a href="http://www.conestogac.on.ca/" target="_blank" data-role="button" data-icon="plus">Conestoga college</a>
+    </section>
+    <footer data-role="footer" data-theme="b" data-position="fixed">
+        <h1>&copy;2016 Ziming Qi</h1>
+    </footer>
+</div>
+
+
+<!--page 2-->
+<div id="ZQAddFeedbackPage" data-role="page">
+    <header data-role="header" data-theme="b" data-position="fixed">
+        <h1>Add a Feedback</h1>
+        <div data-role="navbar" data-iconpos="top">
+            <ul>
+                <li><a href="#ZQPageHome" data-icon="home" data-theme="a" class=""
+                       data-transition="" data-rel="">Home</a></li>
+                <li><a href="#ZQAddFeedbackPage" data-icon="plus" data-theme="a" class="ui-btn-active ui-state-persist" data-transition="" data-rel="">Add
+                   </a></li>
+                <li><a href="#ZQViewFeedbackPage" data-icon="grid" data-theme="a" class="" data-transition="" data-rel="">Reviews</a>
+                </li>
+                <li><a href="#ZQSettingsPage" data-icon="gear" data-theme="a" class="" data-transition="" data-rel="">Settings</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content">
+        <form id="ZQFrmAdd">
+            <label for="zqTxtName">Business Name:</label>
+            <input type="text" id="zqTxtName" name="zqTxtName" data-theme="a">
+            <label for="zqSelect">Type:</label>
+            <select id="zqSelect">
+                <option value="Canadian">Canadian</option>
+                <option value="Asian">Asian</option>
+                <option value="Other">Other</option>
+            </select>
+            <label for="zqTxtEmail">Reviewer Email:</label>
+            <input type="text" id="zqTxtEmail" name="zqTxtEmail" data-theme="a">
+            <label for="zqTxtComments">Reviewer Comments:</label>
+            <textarea id="zqTxtComments" name="zqTxtComments" data-theme="a"></textarea>
+            <label for="zqDateReview">Review Date: </label>
+            <input type="date" id="zqDateReview" name="zqDateReview">
+            <input type="checkbox" id="zqCbAddRating" name="zqCbAddRating" onclick="showDiv('zqRatings')">
+            <label for="zqCbAddRating">Do you want to add your ratings?</label>
+            <div id="zqRatings" style="display:none">
+                <label for="zqNumFoodRating">Food Quality(0-5):</label>
+                <input type="number" id="zqNumFoodRating" name="zqNumFoodRating" data-theme="a" value="0">
+                <label for="zqNumServRating">Service(0-5):</label>
+                <input type="number" id="zqNumServRating" name="zqNumServRating" data-theme="a" value="0">
+                <label for="zqNumValueRating">Value(0-5):</label>
+                <input type="number" id="zqNumValueRating" name="zqNumValueRating" data-theme="a" value="0">
+                <label for="zqTxtAllRating">Overall Rating(Calculated):</label>
+                <input type="text" id="zqTxtAllRating" name="zqTxtAllRating" data-theme="a" disabled="disabled">
+            </div>
+            <button type="button" id="zqBtnSave" name="zqBtnSave" data-inline="true" class="ui-btn-active">
+                Save
+            </button>
+        </form>
+    </section>
+    <footer data-role="footer" data-theme="b" data-position="fixed">
+        <h1>&copy;2016 Ziming Qi</h1>
+    </footer>
+</div>
+
+
+<!--page 3-->
+<div id="ZQViewFeedbackPage" data-role="page">
+    <header data-role="header" data-theme="b" data-position="fixed">
+        <h1>List of Reviews</h1>
+        <div data-role="navbar" data-iconpos="top">
+            <ul>
+                <li><a href="#ZQPageHome" data-icon="home" data-theme="a" class=""
+                       data-transition="" data-rel="">Home</a></li>
+                <li><a href="#ZQAddFeedbackPage" data-icon="plus" data-theme="a" class="" data-transition="" data-rel="">Add
+                   </a></li>
+                <li><a href="#ZQViewFeedbackPage" data-icon="grid" data-theme="a" class="ui-btn-active ui-state-persist" data-transition="" data-rel="">Reviews</a>
+                </li>
+                <li><a href="#ZQSettingsPage" data-icon="gear" data-theme="a" class="" data-transition="" data-rel="">Settings</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content">
+        <ul id="ZQFeedbackList" data-role="listview" class="ui-listview-inset">
+            <li  data-icon="false">
+                <a href="#ZQEditFeedbackPage">Business Name:EB Games<p>Reviewer Email: ZQ@review.com</p><p>Comments: Too expensive !</p><p>Overall Rating: 40%</p></a>
+            </li>
+            <li  data-icon="false">
+                <a href="#ZQEditFeedbackPage">Business Name:Tim Hortons<p>Reviewer Email: ZQ@review.com</p><p>Comments: Just right !</p><p>Overall Rating: 100%</p></a>
+            </li>
+        </ul>
+    </section>
+    <footer data-role="footer" data-theme="b" data-position="fixed">
+        <h1>&copy;2016 Ziming Qi</h1>
+    </footer>
+</div>
+
+
+<!--page 4-->
+<div id="ZQEditFeedbackPage" data-role="page">
+    <header data-role="header" data-theme="b" data-position="fixed">
+        <h1>List of Reviews</h1>
+        <div data-role="navbar" data-iconpos="top">
+            <ul>
+                <li><a href="#ZQPageHome" data-icon="home" data-theme="a" class=""
+                       data-transition="" data-rel="">Home</a></li>
+                <li><a href="#ZQAddFeedbackPage" data-icon="plus" data-theme="a" class="" data-transition="" data-rel="">Add
+                   </a></li>
+                <li><a href="#ZQViewFeedbackPage" data-icon="grid" data-theme="a" class="ui-btn-active ui-state-persist" data-transition="" data-rel="">Reviews</a>
+                </li>
+                <li><a href="#ZQSettingsPage" data-icon="gear" data-theme="a" class="" data-transition="" data-rel="">Settings</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content">
+        <form id="ZQFrmEdit">
+            <label for="zqTxtEditName">Business Name:</label>
+            <input type="text" id="zqTxtEditName" name="zqTxtEditName" data-theme="a">
+            <label for="zqEditSelect">Type:</label>
+            <select id="zqEditSelect">
+                <option value="Canadian">Canadian</option>
+                <option value="Asian">Asian</option>
+                <option value="Other">Other</option>
+            </select>
+            <label for="zqTxtEditEmail">Reviewer Email:</label>
+            <input type="text" id="zqTxtEditEmail" name="zqTxtEditEmail" data-theme="a">
+            <label for="zqTxtEditComments">Reviewer Comments:</label>
+            <textarea id="zqTxtEditComments" name="zqTxtEditComments" data-theme="a"></textarea>
+            <label for="zqDateEditReview">Review Date: </label>
+            <input type="date" id="zqDateEditReview" name="zqDateEditReview">
+            <input type="checkbox" id="zqCbEditAddRating" name="zqCbEditAddRating" onclick="showDiv('zqEditRatings')">
+            <label for="zqCbEditAddRating">Do you want to add your ratings?</label>
+            <div id="zqEditRatings" style="display:none">
+                <label for="zqNumEditFoodRating">Food Quality(0-5):</label>
+                <input type="number" id="zqNumEditFoodRating" name="zqNumEditFoodRating" data-theme="a" value="0">
+                <label for="zqNumEditServRating">Service(0-5):</label>
+                <input type="number" id="zqNumEditServRating" name="zqNumEditServRating" data-theme="a" value="0">
+                <label for="zqNumEditValueRating">Value(0-5):</label>
+                <input type="number" id="zqNumEditValueRating" name="zqNumEditValueRating" data-theme="a" value="0">
+                <label for="zqTxtEditAllRating">Overall Rating(Calculated):</label>
+                <input type="text" id="zqTxtEditAllRating" name="zqTxtEditAllRating" data-theme="a" disabled="disabled">
+            </div>
+            <div data-role="controlgroup" data-type="horizontal">
+                <a href="#" data-role="button" style="background-color:yellow" id="zqBtnEditCancel">Cancel</a>
+                <a href="#" data-role="button" data-theme="b" id="zqBtnEditDelete">Delete</a>
+                <a href="#" data-role="button" class="ui-btn-active" id="zqBtnEditUpdate">Update</a>
+            </div>
+        </form>
+    </section>
+    <footer data-role="footer" data-theme="b" data-position="fixed">
+        <h1>&copy;2016 Ziming Qi</h1>
+    </footer>
+</div>
+
+
+<!--page 5-->
+<div id="ZQSettingsPage" data-role="page">
+    <header data-role="header" data-theme="b" data-position="fixed">
+        <h1>Setting</h1>
+        <div data-role="navbar" data-iconpos="top">
+            <ul>
+                <li><a href="#ZQPageHome" data-icon="home" data-theme="a" class=""
+                       data-transition="" data-rel="">Home</a></li>
+                <li><a href="#ZQAddFeedbackPage" data-icon="plus" data-theme="a" class="" data-transition="" data-rel="">Add
+                   </a></li>
+                <li><a href="#ZQViewFeedbackPage" data-icon="grid" data-theme="a" class="" data-transition="" data-rel="">Reviews</a>
+                </li>
+                <li><a href="#ZQSettingsPage" data-icon="gear" data-theme="a" class="ui-btn-active ui-state-persist" data-transition="" data-rel="">Settings</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content">
+        <label for="zqTxtDefaultEmail">Default reviewer Email:</label>
+        <input type="text" id="zqTxtDefaultEmail" name="zqTxtDefaultEmail" data-theme="a">
+        <a href="#" data-role="button" class="ui-btn-active" id="zqBtnSaveDefaults">Save Defaults</a>
+        <a href="#" data-role="button" data-theme="b" id="zqBtnClearDatabase">Clear Database</a>
+    </section>
+    <footer data-role="footer" data-theme="b" data-position="fixed">
+        <h1>&copy;2016 Ziming Qi</h1>
+    </footer>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
